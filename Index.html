@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>QUEEN — Legendary Rock Pioneers</title>
+<meta name="description" content="Фан-шоукейс Queen: история группы, дискография, плеер, туры и контакты менеджмента.">
+<meta name="color-scheme" content="dark">
+
+<!-- Шрифты: Cormorant Garamond (заголовки) + Manrope (текст). Есть запасные гарнитуры. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500;1,600&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   1. ДИЗАЙН-ТОКЕНЫ
+   Сайт намеренно тёмный: глубокий фиолетовый + бордо, золото, неон.
+   ============================================================ */
+:root {
+  --bg:        #0d0610;
+  --bg-2:      #1a0a1f;
+  --burgundy:  #4a0e24;
+  --violet:    #2a1040;
+  --gold:      #d4af37;
+  --gold-soft: #f2d98a;
+  --neon:      #ff2e9a;
+  --ink:       #f6eee2;
+  --muted:     #b9a9b8;
+  --glass:     rgba(255,255,255,.06);
+  --glass-brd: rgba(212,175,55,.28);
+
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-body:    "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --radius: 18px;
+  --wrap: 1120px;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px)); }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1100px 700px at 85% -10%, rgba(255,46,154,.16), transparent 60%),
+    radial-gradient(900px 700px at -10% 30%, rgba(74,14,36,.75), transparent 60%),
+    radial-gradient(900px 800px at 110% 75%, rgba(42,16,64,.9), transparent 60%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold-soft); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: min(var(--wrap), 100% - 40px); margin-inline: auto; }
+section { padding: clamp(72px, 11vw, 140px) 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.05; margin: 0; }
+h2 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); margin-bottom: 1.2rem; color: var(--gold-soft); }
+p { margin: 0 0 1em; }
+.lead { color: var(--muted); max-width: 62ch; font-size: 1.05rem; }
+
+/* Стеклянная карточка */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-brd);
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  backdrop-filter: blur(16px) saturate(130%);
+  box-shadow: 0 20px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+/* Кнопки */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .95rem 1.7rem; border-radius: 999px; border: 1px solid transparent;
+  font: 700 .98rem var(--font-body); text-decoration: none; cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+}
+.btn-gold {
+  color: #1b0f06;
+  background: linear-gradient(135deg, #f7e19a, var(--gold) 55%, #a8801a);
+  box-shadow: 0 8px 28px rgba(212,175,55,.3);
+}
+.btn-gold:hover { transform: translateY(-3px); box-shadow: 0 14px 38px rgba(212,175,55,.5), 0 0 24px rgba(255,46,154,.35); }
+.btn-ghost { color: var(--gold-soft); border-color: var(--glass-brd); background: var(--glass); }
+.btn-ghost:hover { transform: translateY(-3px); border-color: var(--neon); box-shadow: 0 0 26px rgba(255,46,154,.35); }
+
+/* ============================================================
+   2. НАВИГАЦИЯ
+   ============================================================ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(13,6,16,.55);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(212,175,55,.15);
+}
+.nav-in { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-family: var(--font-display); font-weight: 700; font-size: 1.7rem; letter-spacing: .18em; text-decoration: none; color: var(--gold-soft); }
+.nav ul { display: flex; gap: 1.8rem; list-style: none; margin: 0; padding: 0; }
+.nav ul a { text-decoration: none; color: var(--muted); font-size: .95rem; transition: color .2s; }
+.nav ul a:hover { color: var(--gold-soft); }
+.nav .btn { padding: .55rem 1.1rem; font-size: .88rem; }
+@media (max-width: 760px) { .nav ul { display: none; } }
+
+/* ============================================================
+   3. HERO
+   ============================================================ */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: grid; place-items: center; text-align: center;
+  padding: 110px 0 80px; overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 50% 38%, rgba(212,175,55,.18), transparent 70%),
+    radial-gradient(80% 60% at 50% 100%, rgba(255,46,154,.18), transparent 70%);
+}
+.crest-bg {
+  position: absolute; left: 50%; top: 46%; width: min(780px, 120vw); aspect-ratio: 1;
+  transform: translate(-50%, -50%); opacity: .5; pointer-events: none;
+  filter: drop-shadow(0 0 40px rgba(212,175,55,.35));
+}
+.crest-bg .ring { transform-origin: 250px 250px; animation: spin 120s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.hero-in { position: relative; z-index: 2; }
+.hero h1 {
+  font-size: clamp(4.6rem, 22vw, 15rem); letter-spacing: .08em; margin-right: -.08em;
+  background: linear-gradient(180deg, #fff6d6 5%, var(--gold) 55%, #7a5a10 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 6px 30px rgba(212,175,55,.35));
+}
+.hero h1 span { display: inline-block; }
+.slogan {
+  font-family: var(--font-display); font-style: italic; font-weight: 500;
+  font-size: clamp(1.15rem, 3.2vw, 1.85rem); color: var(--ink); max-width: 30ch; margin: 1rem auto 2.4rem;
+  text-shadow: 0 0 22px rgba(255,46,154,.5);
+}
+.cta-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.scroll-hint {
+  position: absolute; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); left: 50%; width: 1px; height: 46px;
+  background: linear-gradient(var(--gold), transparent); z-index: 2;
+}
+
+/* ============================================================
+   4. ABOUT
+   ============================================================ */
+.about-grid { display: grid; gap: 40px; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .about-grid { grid-template-columns: 1.1fr .9fr; align-items: start; } }
+.quote { padding: clamp(28px, 5vw, 48px); position: relative; }
+.quote::before {
+  content: "\201C"; position: absolute; top: -10px; left: 22px;
+  font: 700 8rem/1 var(--font-display); color: var(--neon); opacity: .35;
+}
+.quote blockquote { margin: 0; position: relative; }
+.quote blockquote p {
+  font-family: var(--font-display); font-style: italic; font-weight: 600;
+  font-size: clamp(1.7rem, 3.8vw, 2.4rem); line-height: 1.2; color: var(--gold-soft);
+}
+.quote cite { color: var(--muted); font-style: normal; }
+.members { display: grid; gap: 16px; margin-top: 36px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.member { padding: 22px; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
+.member:hover { transform: translateY(-6px); border-color: var(--neon); box-shadow: 0 18px 44px rgba(255,46,154,.22); }
+.member h3 { font-size: 1.6rem; color: var(--gold-soft); margin-bottom: .1rem; }
+.member small { display: block; color: var(--neon); margin-bottom: .6rem; font-weight: 500; }
+.member p { color: var(--muted); font-size: .95rem; margin: 0; }
+
+/* ============================================================
+   5. ДИСКОГРАФИЯ + ПЛЕЕР
+   ============================================================ */
+.albums { display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); margin: 36px 0 70px; }
+.album { padding: 14px; transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease; }
+.album:hover { transform: translateY(-8px) rotate(-.6deg); border-color: var(--gold); box-shadow: 0 24px 54px rgba(212,175,55,.25); }
+.album svg { width: 100%; border-radius: 12px; aspect-ratio: 1; box-shadow: 0 10px 28px rgba(0,0,0,.5); }
+.album h3 { font-size: 1.35rem; margin-top: 14px; color: var(--ink); }
+.album p { color: var(--muted); font-size: .9rem; margin: .2rem 0 0; }
+
+.player { display: grid; gap: 28px; padding: clamp(20px, 4vw, 40px); grid-template-columns: 1fr; }
+@media (min-width: 860px) { .player { grid-template-columns: 300px 1fr; align-items: center; } }
+.cover {
+  width: min(300px, 100%); aspect-ratio: 1; margin-inline: auto; border-radius: 16px;
+  display: grid; place-items: center; position: relative; overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,.55); transition: background .5s ease;
+}
+.cover svg { width: 56%; filter: drop-shadow(0 0 14px rgba(0,0,0,.5)); }
+.cover.is-playing { animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { box-shadow: 0 18px 60px rgba(255,46,154,.55); } }
+.now h3 { font-size: clamp(1.9rem, 4vw, 2.7rem); color: var(--gold-soft); }
+.now p { color: var(--muted); margin: .2rem 0 1.4rem; }
+.bar-row { display: flex; align-items: center; gap: 12px; font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar-row input { flex: 1; }
+.controls { display: flex; align-items: center; gap: 14px; margin: 18px 0; flex-wrap: wrap; }
+.icon-btn {
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--glass-brd);
+  background: var(--glass); color: var(--gold-soft); cursor: pointer; display: grid; place-items: center;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.icon-btn:hover { transform: scale(1.1); border-color: var(--neon); box-shadow: 0 0 20px rgba(255,46,154,.4); }
+.icon-btn.main { width: 64px; height: 64px; color: #1b0f06; border: 0; background: linear-gradient(135deg, #f7e19a, var(--gold)); }
+.icon-btn svg { width: 22px; height: 22px; fill: currentColor; }
+.volume { display: flex; align-items: center; gap: 10px; margin-left: auto; color: var(--muted); }
+.volume svg { width: 20px; height: 20px; fill: currentColor; }
+.volume input { width: 110px; }
+
+/* Ползунки (прогресс и громкость) */
+input[type=range] { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 6px; cursor: pointer;
+  background: linear-gradient(90deg, var(--gold) var(--fill, 0%), rgba(255,255,255,.14) var(--fill, 0%)); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--gold-soft); box-shadow: 0 0 12px var(--neon); border: 0; }
+input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--gold-soft); box-shadow: 0 0 12px var(--neon); border: 0; }
+
+.playlist { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+.playlist button {
+  width: 100%; text-align: left; display: flex; justify-content: space-between; gap: 12px;
+  background: transparent; color: var(--ink); border: 1px solid transparent; border-radius: 12px;
+  padding: .7rem .9rem; font: 500 .98rem var(--font-body); cursor: pointer; transition: background .2s, border-color .2s;
+}
+.playlist button:hover { background: rgba(255,255,255,.06); }
+.playlist button[aria-current="true"] { border-color: var(--glass-brd); background: rgba(212,175,55,.1); color: var(--gold-soft); }
+.playlist span:last-child { color: var(--muted); font-size: .85rem; }
+.player-note { color: var(--muted); font-size: .82rem; margin-top: 14px; }
+
+/* ============================================================
+   6. ТУР
+   ============================================================ */
+.tour-list { list-style: none; padding: 0; margin: 36px 0 0; display: grid; gap: 12px; }
+.tour-row {
+  display: grid; gap: 6px 20px; align-items: center; padding: 20px 24px;
+  grid-template-columns: 90px 1fr; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.tour-row:hover { transform: translateX(10px); border-color: var(--neon); background: rgba(255,46,154,.08); box-shadow: 0 0 34px rgba(255,46,154,.2); }
+.tour-date { font-family: var(--font-display); font-weight: 700; color: var(--gold-soft); line-height: 1; }
+.tour-date b { display: block; font-size: 2.6rem; }
+.tour-date span { font-size: 1rem; color: var(--muted); font-weight: 500; }
+.tour-city { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; }
+.tour-venue { color: var(--muted); }
+.tour-cta { grid-column: 1 / -1; }
+.tour-cta .btn { width: 100%; }
+.sold { color: var(--muted); border: 1px dashed rgba(255,255,255,.25); border-radius: 999px; padding: .85rem 1.4rem; text-align: center; font-weight: 700; display: block; }
+@media (min-width: 760px) {
+  .tour-row { grid-template-columns: 100px 1.2fr 1.4fr 190px; }
+  .tour-cta { grid-column: auto; }
+}
+
+/* ============================================================
+   7. КОНТАКТЫ
+   ============================================================ */
+.contact-grid { display: grid; gap: 28px; grid-template-columns: 1fr; margin-top: 36px; }
+@media (min-width: 900px) { .contact-grid { grid-template-columns: 1.2fr .8fr; } }
+.form, .direct { padding: clamp(22px, 4vw, 38px); }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-weight: 500; margin-bottom: 6px; color: var(--gold-soft); font-size: .95rem; }
+.field input, .field textarea, .field select {
+  width: 100%; padding: .9rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.3); color: var(--ink); font: 400 1rem var(--font-body); transition: border-color .2s, box-shadow .2s;
+}
+.field select option { background: #1a0a1f; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,.25); }
+.field textarea { min-height: 140px; resize: vertical; }
+.form-msg { margin: 14px 0 0; min-height: 1.5em; font-size: .95rem; }
+.form-msg.ok { color: var(--gold-soft); } .form-msg.err { color: var(--neon); }
+.direct h3 { font-size: 1.7rem; color: var(--gold-soft); margin-bottom: 1rem; }
+.direct a.mail { display: block; text-decoration: none; padding: .8rem 0; border-bottom: 1px solid rgba(255,255,255,.1); transition: color .2s, padding-left .25s; }
+.direct a.mail:hover { color: var(--gold-soft); padding-left: 8px; }
+.direct a.mail small { display: block; color: var(--muted); }
+.direct .btn { margin-top: 20px; }
+.socials { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.socials a {
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; color: var(--gold-soft);
+  border: 1px solid var(--glass-brd); background: var(--glass); transition: transform .25s, color .25s, box-shadow .25s, border-color .25s;
+}
+.socials a:hover { transform: translateY(-5px) scale(1.08); color: #fff; border-color: var(--neon); box-shadow: 0 0 22px rgba(255,46,154,.55); }
+.socials svg { width: 22px; height: 22px; fill: currentColor; }
+
+footer { padding: 40px 0 56px; text-align: center; color: var(--muted); font-size: .85rem; border-top: 1px solid rgba(212,175,55,.15); }
+footer p { max-width: 70ch; margin-inline: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ НАВИГАЦИЯ ============ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" aria-label="Queen — наверх">QUEEN</a>
+    <nav aria-label="Основная навигация">
+      <ul>
+        <li><a href="#about">О группе</a></li>
+        <li><a href="#music">Музыка</a></li>
+        <li><a href="#tour">Концерты</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+    </nav>
+    <a href="#tour" class="btn btn-gold">Билеты</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-label="Queen">
+  <!-- Оригинальный декоративный герб (не официальный логотип группы) -->
+  <svg class="crest-bg" viewBox="0 0 500 500" aria-hidden="true">
+    <defs>
+      <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff0b8"/><stop offset=".5" stop-color="#d4af37"/><stop offset="1" stop-color="#7a5a10"/>
+      </linearGradient>
+    </defs>
+    <g fill="none" stroke="url(#gold)" stroke-width="2">
+      <g class="ring">
+        <circle cx="250" cy="250" r="215"/>
+        <circle cx="250" cy="250" r="200" stroke-dasharray="2 9"/>
+        <!-- 12 лучей -->
+        <g stroke-width="1.5">
+          <path d="M250 20v34M250 446v34M20 250h34M446 250h34M87 87l24 24M389 389l24 24M413 87l-24 24M111 389l-24 24"/>
+        </g>
+      </g>
+      <circle cx="250" cy="250" r="165"/>
+      <!-- Корона -->
+      <path stroke-width="3" d="M170 214l16-60 36 38 28-52 28 52 36-38 16 60z"/>
+      <path stroke-width="3" d="M170 214h160v16H170z"/>
+      <circle cx="186" cy="150" r="6"/><circle cx="250" cy="130" r="7"/><circle cx="314" cy="150" r="6"/>
+      <!-- Вензель Q -->
+      <circle cx="250" cy="318" r="52" stroke-width="3"/>
+      <path stroke-width="3" d="M270 338l34 30"/>
+      <!-- Завитки -->
+      <path d="M170 262c-40 8-58 40-40 74M330 262c40 8 58 40 40 74"/>
+      <path d="M150 300c-18 10-20 34-6 46M350 300c18 10 20 34 6 46"/>
+    </g>
+  </svg>
+
+  <div class="wrap hero-in">
+    <h1 aria-label="QUEEN"><span>Q</span><span>U</span><span>E</span><span>E</span><span>N</span></h1>
+    <p class="slogan">The Legendary Rock Pioneers &amp; Kings of Arena Rock</p>
+    <div class="cta-row">
+      <a href="#music" class="btn btn-gold" data-scroll="#player">Слушать хиты</a>
+      <a href="#tour" class="btn btn-ghost">Купить билеты / Букинг</a>
+    </div>
+  </div>
+  <span class="scroll-hint" aria-hidden="true"></span>
+</section>
+
+<!-- ============ О ГРУППЕ ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <h2>Наследие, которое не стареет</h2>
+        <p class="lead">Queen родилась в Лондоне в 1970 году и за двадцать лет превратила рок-концерт в театр на стадионе: оперные хоры, гитарные оркестры и песни, которые поёт вся площадь.</p>
+        <p class="lead">Каждый участник написал хиты, ставшие мировой классикой, — поэтому группа звучит как четыре разных автора в одном составе. Выступление на Live Aid в 1985 году до сих пор считают одним из лучших концертов в истории рока.</p>
+      </div>
+      <figure class="quote glass reveal" style="margin:0">
+        <blockquote>
+          <p>I won't be a rock star. I will be a legend.</p>
+          <cite>— Freddie Mercury</cite>
+        </blockquote>
+      </figure>
+    </div>
+
+    <div class="members">
+      <article class="member glass reveal">
+        <h3>Freddie Mercury</h3><small>Вокал, фортепиано</small>
+        <p>Голос в четыре октавы и автор «Bohemian Rhapsody». Превращал любой зал в единый хор.</p>
+      </article>
+      <article class="member glass reveal">
+        <h3>Brian May</h3><small>Гитара, вокал</small>
+        <p>Астрофизик и гитарист. Свою Red Special собрал вместе с отцом — её звук узнают с первой ноты.</p>
+      </article>
+      <article class="member glass reveal">
+        <h3>Roger Taylor</h3><small>Ударные, вокал</small>
+        <p>Мощный ритм и высокий бэк-вокал. Автор «Radio Ga Ga» и «A Kind of Magic».</p>
+      </article>
+      <article class="member glass reveal">
+        <h3>John Deacon</h3><small>Бас-гитара</small>
+        <p>Фундамент группы. Написал «You're My Best Friend» и «Another One Bites the Dust».</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ МУЗЫКА ============ -->
+<section id="music">
+  <div class="wrap">
+    <h2 class="reveal">Альбомы, ставшие классикой</h2>
+    <p class="lead reveal">Обложки ниже — оригинальная стилизованная графика для этого шоукейса.</p>
+
+    <div class="albums">
+      <!-- A Night at the Opera -->
+      <article class="album glass reveal">
+        <svg viewBox="0 0 300 300" role="img" aria-label="A Night at the Opera, 1975">
+          <defs><linearGradient id="a1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a1230"/><stop offset="1" stop-color="#1c0510"/></linearGradient></defs>
+          <rect width="300" height="300" fill="url(#a1)"/>
+          <path d="M0 0c60 40 60 140 20 300H0zM300 0c-60 40-60 140-20 300h20z" fill="#2c0816" stroke="#d4af37" stroke-width="2"/>
+          <path d="M60 0c30 60 24 160-10 300M240 0c-30 60-24 160 10 300" fill="none" stroke="#d4af37" stroke-opacity=".5"/>
+          <ellipse cx="150" cy="150" rx="46" ry="62" fill="none" stroke="#f2d98a" stroke-width="2"/>
+          <path d="M126 168q24 30 48 0" fill="none" stroke="#f2d98a" stroke-width="2"/>
+          <text x="150" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#f2d98a">A Night at the Opera</text>
+        </svg>
+        <h3>A Night at the Opera</h3><p>1975 · «Bohemian Rhapsody»</p>
+      </article>
+      <!-- News of the World -->
+      <article class="album glass reveal">
+        <svg viewBox="0 0 300 300" role="img" aria-label="News of the World, 1977">
+          <rect width="300" height="300" fill="#12080f"/>
+          <g stroke="#ff2e9a" stroke-opacity=".35"><path d="M0 60h300M0 120h300M0 180h300M0 240h300M60 0v300M120 0v300M180 0v300M240 0v300"/></g>
+          <circle cx="150" cy="130" r="70" fill="#d4af37"/>
+          <circle cx="150" cy="130" r="48" fill="#12080f"/>
+          <rect x="132" y="108" width="36" height="44" fill="#ff2e9a"/>
+          <text x="150" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#f2d98a">News of the World</text>
+        </svg>
+        <h3>News of the World</h3><p>1977 · «We Will Rock You»</p>
+      </article>
+      <!-- The Works -->
+      <article class="album glass reveal">
+        <svg viewBox="0 0 300 300" role="img" aria-label="The Works, 1984">
+          <defs><linearGradient id="a3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b6577"/><stop offset="1" stop-color="#1d1824"/></linearGradient></defs>
+          <rect width="300" height="300" fill="url(#a3)"/>
+          <g transform="translate(150 125)" fill="none" stroke="#f2d98a" stroke-width="3">
+            <circle r="52"/><circle r="22"/>
+            <path d="M0-52v-18M0 52v18M-52 0h-18M52 0h18M-37-37l-13-13M37 37l13 13M37-37l13-13M-37 37l-13 13" stroke-width="9"/>
+          </g>
+          <text x="150" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="30" fill="#fff">The Works</text>
+        </svg>
+        <h3>The Works</h3><p>1984 · «Radio Ga Ga»</p>
+      </article>
+      <!-- Innuendo -->
+      <article class="album glass reveal">
+        <svg viewBox="0 0 300 300" role="img" aria-label="Innuendo, 1991">
+          <defs><radialGradient id="a4" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#5a2a8a"/><stop offset="1" stop-color="#140822"/></radialGradient></defs>
+          <rect width="300" height="300" fill="url(#a4)"/>
+          <g fill="none" stroke="#f2d98a" stroke-opacity=".7">
+            <circle cx="150" cy="130" r="30"/><circle cx="150" cy="130" r="50"/><circle cx="150" cy="130" r="70"/>
+            <circle cx="120" cy="115" r="46" stroke="#ff2e9a"/><circle cx="180" cy="145" r="46" stroke="#ff2e9a"/>
+          </g>
+          <text x="150" y="252" text-anchor="middle" font-family="Georgia,serif" font-size="32" fill="#f2d98a">Innuendo</text>
+        </svg>
+        <h3>Innuendo</h3><p>1991 · «The Show Must Go On»</p>
+      </article>
+    </div>
+
+    <!-- ===== Плеер ===== -->
+    <div id="player" class="player glass reveal" aria-label="Аудиоплеер">
+      <div class="cover" id="cover">
+        <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.5" aria-hidden="true">
+          <path d="M18 60l8-30 18 19 14-26 14 26 18-19 8 30z"/><path d="M18 60h80v8H18z"/>
+        </svg>
+      </div>
+      <div class="now">
+        <h3 id="trackTitle">Bohemian Rhapsody</h3>
+        <p id="trackMeta">A Night at the Opera · 1975</p>
+
+        <div class="bar-row">
+          <span id="cur">0:00</span>
+          <input type="range" id="seek" min="0" max="1000" value="0" aria-label="Перемотка">
+          <span id="dur">2:00</span>
+        </div>
+
+        <div class="controls">
+          <button class="icon-btn" id="prev" aria-label="Предыдущий трек"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12L18 18V6z"/></svg></button>
+          <button class="icon-btn main" id="play" aria-label="Играть"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
+          <button class="icon-btn" id="next" aria-label="Следующий трек"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg></button>
+          <label class="volume">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9zm13.5 3A4.5 4.5 0 0014 8v8a4.5 4.5 0 002.5-4z"/></svg>
+            <input type="range" id="vol" min="0" max="100" value="70" aria-label="Громкость">
+          </label>
+        </div>
+
+        <ul class="playlist" id="playlist"></ul>
+        <p class="player-note">Демо-плеер играет короткие синтезированные мотивы прямо в браузере, без аудиофайлов. Чтобы подключить настоящие записи (на которые у вас есть права), добавьте поле <code>src</code> в массив <code>TRACKS</code> в коде.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ТУР ============ -->
+<section id="tour">
+  <div class="wrap">
+    <h2 class="reveal">Queen + Adam Lambert на сцене</h2>
+    <p class="lead reveal">Три города, три главные арены мира.</p>
+
+    <ul class="tour-list">
+      <li class="tour-row glass reveal">
+        <div class="tour-date"><b>12</b><span>Ноября</span></div>
+        <div class="tour-city">Лондон</div>
+        <div class="tour-venue">O2 Arena</div>
+        <div class="tour-cta"><span class="sold">Sold Out</span></div>
+      </li>
+      <li class="tour-row glass reveal">
+        <div class="tour-date"><b>18</b><span>Ноября</span></div>
+        <div class="tour-city">Токио</div>
+        <div class="tour-venue">Tokyo Dome</div>
+        <div class="tour-cta"><a class="btn btn-gold" href="https://www.queenonline.com" target="_blank" rel="noopener noreferrer">Купить билет</a></div>
+      </li>
+      <li class="tour-row glass reveal">
+        <div class="tour-date"><b>02</b><span>Декабря</span></div>
+        <div class="tour-city">Нью-Йорк</div>
+        <div class="tour-venue">Madison Square Garden</div>
+        <div class="tour-cta"><a class="btn btn-gold" href="https://www.queenonline.com" target="_blank" rel="noopener noreferrer">Купить билет</a></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ КОНТАКТЫ ============ -->
+<section id="contact">
+  <div class="wrap">
+    <h2 class="reveal">Букинг и пресса</h2>
+    <p class="lead reveal">Организаторам концертов и журналистам: напишите нам, и сообщение уйдёт в нужный отдел.</p>
+
+    <div class="contact-grid">
+      <form class="form glass reveal" id="contactForm" novalidate>
+        <div class="field">
+          <label for="name">Имя</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="topic">Тема обращения</label>
+          <select id="topic" name="topic">
+            <option value="management@queenonline.com">Букинг и концерты</option>
+            <option value="press@queenonline.com">Пресса</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Сообщение</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button class="btn btn-gold" type="submit">Отправить сообщение</button>
+        <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="direct glass reveal">
+        <h3>Официальный менеджмент</h3>
+        <a class="mail" href="mailto:management@queenonline.com"><small>Букинг</small>management@queenonline.com</a>
+        <a class="mail" href="mailto:press@queenonline.com"><small>Пресса</small>press@queenonline.com</a>
+        <a class="btn btn-ghost" href="https://www.queenonline.com" target="_blank" rel="noopener noreferrer">Официальный мерч</a>
+
+        <div class="socials" aria-label="Социальные сети и стриминги">
+          <a href="https://open.spotify.com/artist/1dfeR4HaWDbWqFHLkxsg1d" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm4.6 14.4a.6.6 0 01-.9.2c-2.4-1.5-5.400-1.800-8.900-1a.6.6 0 11-.3-1.200c3.800-.9 7.200-.5 9.800 1.100.3.200.4.600.3.900zm1.200-2.700a.75.75 0 01-1 .3c-2.700-1.700-6.800-2.200-10-1.200a.75.75 0 11-.4-1.400c3.600-1.100 8.200-.6 11.300 1.300.4.200.5.700.1 1zm.1-2.800C14.700 9 9.400 8.800 6.300 9.800a.9.900 0 11-.5-1.700c3.500-1.100 9.400-.9 13 1.200a.9.9 0 01-.9 1.600z"/></svg>
+          </a>
+          <a href="https://music.apple.com/us/artist/queen/3296287" target="_blank" rel="noopener noreferrer" aria-label="Apple Music">
+            <svg viewBox="0 0 24 24"><path d="M9 18V6.500l10-2V16a2.500 2.500 0 11-1.500-2.300V7.500L10.500 9v9.500A2.500 2.500 0 118.800 16 2.500 2.500 0 019 18z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@Queen" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M21.600 7.200a2.500 2.500 0 00-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 002.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 001.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 001.800-1.800c.4-1.600.4-4.800.4-4.800s0-3.200-.4-4.800zM10 15V9l5.200 3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/officialqueenmusic/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3zm5 3.500a4.500 4.500 0 110 9 4.500 4.500 0 010-9zm0 2a2.500 2.500 0 100 5 2.500 2.500 0 000-5zM17.500 6a1 1 0 110 2 1 1 0 010-2z"/></svg>
+          </a>
+          <a href="https://x.com/QueenWillRock" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24"><path d="M17.800 3h3l-6.500 7.500L22 21h-6l-4.700-6.200L5.900 21h-3l7-8L2.400 3h6.100l4.300 5.700zm-1 16.200h1.700L7.500 4.700H5.700z"/></svg>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Неофициальный фан-проект. Queen, названия альбомов и песен принадлежат их правообладателям. Даты концертов приведены для демонстрации: проверяйте расписание на официальном сайте группы.</p>
+  </div>
+</footer>
+
+<!-- GSAP + ScrollTrigger (cdnjs) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+/* ============================================================
+   A. ПЛАВНАЯ ПРОКРУТКА ДЛЯ КНОПКИ «Слушать хиты» (к плееру)
+   ============================================================ */
+document.querySelectorAll('[data-scroll]').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    var target = document.querySelector(el.getAttribute('data-scroll'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+});
+
+/* ============================================================
+   B. АНИМАЦИИ GSAP
+   Если библиотека не загрузилась или включён reduced-motion,
+   контент просто остаётся видимым.
+   ============================================================ */
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!window.gsap || reduce) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Главный момент: буквы QUEEN выезжают по очереди, затем слоган и кнопки
+  var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl.from('.hero h1 span', { y: 90, opacity: 0, rotateX: -60, duration: 1, stagger: 0.12 })
+    .from('.slogan', { y: 20, opacity: 0, duration: 0.8 }, '-=0.3')
+    .from('.cta-row .btn', { y: 20, opacity: 0, duration: 0.6, stagger: 0.12 }, '-=0.4')
+    .from('.crest-bg', { scale: 0.85, opacity: 0, duration: 1.6 }, 0);
+
+  // Появление блоков при скролле
+  gsap.set('.reveal', { opacity: 0, y: 40 });
+  ScrollTrigger.batch('.reveal', {
+    start: 'top 88%',
+    once: true,
+    onEnter: function (batch) {
+      gsap.to(batch, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.12 });
+    }
+  });
+})();
+
+/* ============================================================
+   C. АУДИОПЛЕЕР (Web Audio API)
+   Треки синтезируются в браузере. Чтобы играть настоящие файлы,
+   добавьте в объект трека поле src и замените движок на <audio>.
+   ============================================================ */
+(function () {
+  var DURATION = 120; // условная длительность демо-трека, сек
+
+  var TRACKS = [
+    { title: 'Bohemian Rhapsody',  meta: 'A Night at the Opera · 1975', step: 60 / 72 / 2,  bg: 'linear-gradient(135deg,#6a1230,#1c0510)', kind: 'opera' },
+    { title: "Don't Stop Me Now",  meta: 'Jazz · 1978',                 step: 60 / 156 / 2, bg: 'linear-gradient(135deg,#ff2e9a,#4a0e6e)', kind: 'dance' },
+    { title: 'We Will Rock You',   meta: 'News of the World · 1977',    step: 60 / 81 / 2,  bg: 'linear-gradient(135deg,#d4af37,#3a0a14)', kind: 'stomp' }
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var ui = { title: $('trackTitle'), meta: $('trackMeta'), cover: $('cover'), play: $('play'), icon: $('playIcon'),
+             seek: $('seek'), vol: $('vol'), cur: $('cur'), dur: $('dur'), list: $('playlist') };
+
+  var PLAY_PATH  = 'M8 5v14l11-7z';
+  var PAUSE_PATH = 'M6 5h4v14H6zM14 5h4v14h-4z';
+
+  var ctx, master, noiseBuf, timer;
+  var idx = 0, playing = false, offset = 0, startCtx = 0, nextStep = 0;
+
+  /* ---------- Синтез ---------- */
+  function mtof(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+
+  function tone(freq, t, dur, type, gain, cutoff) {
+    var o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+    o.type = type; o.frequency.value = freq;
+    f.type = 'lowpass'; f.frequency.value = cutoff || 4000;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(gain, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(f); f.connect(g); g.connect(master);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  function kick(t) {
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(40, t + 0.15);
+    g.gain.setValueAtTime(0.9, t); g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.3);
+  }
+  function noise(t, dur, gain, freq) {
+    var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = noiseBuf; f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = 0.8;
+    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t + dur + 0.02);
+  }
+
+  /* ---------- Паттерны (n — номер шага, t — время в аудио-контексте) ---------- */
+  var OPERA_CHORDS = [[58,62,65,70],[55,58,62,67],[60,63,67,72],[53,57,60,65]];
+  var OPERA_ARP = [0,1,2,3,2,1,2,1];
+  var DANCE_ROOTS = [53,50,58,60];
+  var PATTERNS = {
+    opera: function (n, t, sd) {
+      var s = n % 8, ch = OPERA_CHORDS[Math.floor(n / 8) % 4];
+      tone(mtof(ch[OPERA_ARP[s]]), t, sd * 2, 'triangle', 0.2);
+      if (s === 0) tone(mtof(ch[0] - 12), t, sd * 7, 'sine', 0.3);
+    },
+    dance: function (n, t, sd) {
+      var s = n % 8, r = DANCE_ROOTS[Math.floor(n / 8) % 4];
+      tone(mtof(r - 12 + (s % 2 ? 7 : 0)), t, sd * 0.9, 'sawtooth', 0.12, 700);
+      if (s === 2 || s === 6) { [0, 4, 7].forEach(function (i) { tone(mtof(r + i), t, sd * 1.4, 'square', 0.05, 2200); }); }
+      if (s % 2) noise(t, 0.05, 0.12, 8000);
+      if (s === 0 || s === 4) kick(t);
+    },
+    stomp: function (n, t) {
+      var s = n % 8;
+      if (s === 0 || s === 2) kick(t);
+      if (s === 4) noise(t, 0.14, 0.7, 1800);
+    }
+  };
+
+  /* ---------- Транспорт ---------- */
+  function position() { return playing ? offset + (ctx.currentTime - startCtx) : offset; }
+  function stepDur() { return TRACKS[idx].step; }
+
+  function schedule() {
+    var p = position();
+    if (p >= DURATION) { change(1, true); return; }
+    var sd = stepDur();
+    while (nextStep * sd < p + 0.12) {
+      var t = startCtx + nextStep * sd - offset;
+      if (t >= ctx.currentTime - 0.01) PATTERNS[TRACKS[idx].kind](nextStep, Math.max(t, ctx.currentTime), sd);
+      nextStep++;
+    }
+  }
+
+  function ensureAudio() {
+    if (ctx) return;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    ctx = new AC();
+    master = ctx.createGain(); master.connect(ctx.destination); applyVolume();
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0);
+    for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+
+  function play() {
+    ensureAudio();
+    if (ctx.state === 'suspended') ctx.resume();
+    playing = true; startCtx = ctx.currentTime;
+    nextStep = Math.ceil(offset / stepDur() - 1e-6);
+    clearInterval(timer); timer = setInterval(schedule, 25);
+    render();
+  }
+  function pause() { offset = position(); playing = false; clearInterval(timer); render(); }
+
+  function select(i, autoplay) {
+    var was = playing || autoplay;
+    if (playing) pause();
+    idx = (i + TRACKS.length) % TRACKS.length; offset = 0;
+    render(); if (was) play();
+  }
+  function change(dir, autoplay) { select(idx + dir, autoplay); }
+
+  function applyVolume() { if (master) master.gain.value = (ui.vol.value / 100) * 0.8; setFill(ui.vol, ui.vol.value / 100); }
+  function setFill(el, frac) { el.style.setProperty('--fill', (frac * 100) + '%'); }
+  function fmt(s) { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+
+  /* ---------- Интерфейс ---------- */
+  function buildList() {
+    TRACKS.forEach(function (tr, i) {
+      var li = document.createElement('li'), b = document.createElement('button');
+      b.type = 'button'; b.innerHTML = '<span>' + tr.title + '</span><span>' + tr.meta.split(' · ')[0] + '</span>';
+      b.addEventListener('click', function () { select(i, true); });
+      li.appendChild(b); ui.list.appendChild(li);
+    });
+  }
+  function render() {
+    var tr = TRACKS[idx];
+    ui.title.textContent = tr.title; ui.meta.textContent = tr.meta;
+    ui.cover.style.background = tr.bg;
+    ui.cover.classList.toggle('is-playing', playing);
+    ui.icon.firstElementChild.setAttribute('d', playing ? PAUSE_PATH : PLAY_PATH);
+    ui.play.setAttribute('aria-label', playing ? 'Пауза' : 'Играть');
+    ui.dur.textContent = fmt(DURATION);
+    Array.prototype.forEach.call(ui.list.querySelectorAll('button'), function (b, i) {
+      if (i === idx) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    });
+    tick();
+  }
+  function tick() {
+    var p = ctx || !playing ? position() : offset;
+    ui.cur.textContent = fmt(p);
+    if (!seeking) { ui.seek.value = Math.min(1000, (p / DURATION) * 1000); }
+    setFill(ui.seek, ui.seek.value / 1000);
+  }
+
+  var seeking = false;
+  ui.seek.addEventListener('input', function () { seeking = true; setFill(ui.seek, ui.seek.value / 1000); ui.cur.textContent = fmt(ui.seek.value / 1000 * DURATION); });
+  ui.seek.addEventListener('change', function () {
+    seeking = false; offset = ui.seek.value / 1000 * DURATION;
+    if (playing) { startCtx = ctx.currentTime; nextStep = Math.ceil(offset / stepDur() - 1e-6); }
+    tick();
+  });
+  ui.vol.addEventListener('input', applyVolume);
+  ui.play.addEventListener('click', function () { playing ? pause() : play(); });
+  $('prev').addEventListener('click', function () { change(-1); });
+  $('next').addEventListener('click', function () { change(1); });
+  setInterval(tick, 200);
+
+  buildList(); render(); applyVolume();
+})();
+
+/* ============================================================
+   D. ФОРМА ОБРАТНОЙ СВЯЗИ
+   Бэкенда нет, поэтому форма проверяет поля и открывает почтовый
+   клиент с готовым письмом нужному отделу. Для реальной отправки
+   замените блок на fetch() к вашему серверу или сервису форм.
+   ============================================================ */
+(function () {
+  var form = document.getElementById('contactForm'), msg = document.getElementById('formMsg');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = form.name.value.trim(), email = form.email.value.trim(), text = form.message.value.trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!name || !emailOk || !text) {
+      msg.className = 'form-msg err';
+      msg.textContent = !name ? 'Укажите имя.' : !emailOk ? 'Проверьте email: он должен быть вида name@example.com.' : 'Напишите сообщение.';
+      return;
+    }
+    var subject = encodeURIComponent('Обращение с сайта: ' + name);
+    var body = encodeURIComponent(text + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = 'mailto:' + form.topic.value + '?subject=' + subject + '&body=' + body;
+    msg.className = 'form-msg ok';
+    msg.textContent = 'Письмо подготовлено. Отправьте его в почтовом клиенте.';
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
